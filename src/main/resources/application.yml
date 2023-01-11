@@ -1,0 +1,26 @@
+server:
+  port: 9099
+spring:
+  datasource:
+    #    druid:  test-while-idle=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password:
+  servlet:
+    multipart:
+      max-request-size: 2048MB
+      max-file-size: 2048MB
+#  druid.test-on-borrow=true
+mybatis:
+  mapper-locations : classpath:mapper/*.xml
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+files:
+  upload:
+    path: D:/bookBarWeb/files/
+
+#spring.web.resources.static-locations=  classpath:static/,classpath:/templates/
