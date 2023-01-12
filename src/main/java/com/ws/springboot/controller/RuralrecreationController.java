@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-01-12
  */
         @RestController
-        @RequestMapping("//ruralrecreation")
+        @RequestMapping("/ruralrecreation")
             public class RuralrecreationController {
     
     @Resource
