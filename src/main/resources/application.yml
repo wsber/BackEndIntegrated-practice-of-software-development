@@ -21,6 +21,5 @@ mybatis-plus:
 
 files:
   upload:
-    path: D:/bookBarWeb/files/
-
+     path: src\main\resources\files\
 #spring.web.resources.static-locations=  classpath:static/,classpath:/templates/
