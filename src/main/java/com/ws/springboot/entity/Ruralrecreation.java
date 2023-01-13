@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author baomidou
- * @since 2023-01-12
+ * @since 2023-01-13
  */
 @Getter
 @Setter
@@ -34,7 +34,7 @@ public class Ruralrecreation implements Serializable {
       private Integer audienceNumber;
 
       @ApiModelProperty("活动简述")
-      private String desc;
+      private String mydesc;
 
       @ApiModelProperty("演出团队")
       private String performanceTeam;
