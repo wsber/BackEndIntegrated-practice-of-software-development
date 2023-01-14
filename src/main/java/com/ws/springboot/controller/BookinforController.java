@@ -65,7 +65,6 @@ import org.springframework.web.multipart.MultipartFile;
         System.out.println("request info ...");
         List<Bookinfor> booklist = bookinforMapper.selectList(wrapper);
         System.out.println(booklist);
-        System.out.print("wser");
         return Result.success(booklist);
     }
 
