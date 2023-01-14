@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author baomidou
- * @since 2023-01-12
+ * @since 2023-01-13
  */
 @Service
 public class RuralrecreationServiceImpl extends ServiceImpl<RuralrecreationMapper, Ruralrecreation> implements IRuralrecreationService {
