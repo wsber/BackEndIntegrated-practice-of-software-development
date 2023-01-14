@@ -16,8 +16,8 @@ public class RecreationDto implements Serializable {
 //        this.loaction = location;
 //        this.ruralrecreation = ruralrecreation;
 //    }
-@ApiModelProperty("活动名称")
-private String activityName;
+    @ApiModelProperty("活动名称")
+    private String activityName;
 
     @ApiModelProperty("活动开始时间")
     private LocalDateTime activityStarttime;
