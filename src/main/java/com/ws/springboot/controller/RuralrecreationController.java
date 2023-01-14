@@ -45,6 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
     public List<Ruralrecreation> findAll() {
             return ruralrecreationService.list();
             }
+
     @GetMapping("/detail")
     public List<RecreationDto> getDetailData(){
             return ruralrecreationService.getDetailData();
