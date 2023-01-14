@@ -70,6 +70,7 @@ public class RuralrecreationController {
             if(!"".equals(type)){
             queryWrapper.like("type",type);
             }
+            System.out.println(1);
             return ruralrecreationService.page(new Page<>(pageNum, pageSize), queryWrapper);
     }
 }
