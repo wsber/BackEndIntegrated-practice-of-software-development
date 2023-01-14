@@ -3,8 +3,11 @@ package com.ws.springboot.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ws.springboot.controller.dto.RecreationDto;
+import com.ws.springboot.entity.Bookinfor;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -83,8 +86,28 @@ import org.springframework.web.bind.annotation.RestController;
             }
 
 
+    @GetMapping("/likeSearchActivities")
+    public List<Ruralrecreation> likeSearchBooks(
+            @RequestParam(defaultValue = "") String activityName,
+            @RequestParam(defaultValue = "") String activityType,
+            @RequestParam(defaultValue = "") String performanceTeam) {
 
+        QueryWrapper<Ruralrecreation> queryWrapper = new QueryWrapper<>();
+        int readingPrivilege =  0;
 
+        if (!"".equals(activityName)) {
+            queryWrapper.like("activity_name", activityName);
+        }
+        if (!"".equals(activityType)) {
+            queryWrapper.eq("type", activityType);
+        }
+        if (!"".equals(performanceTeam)) {
+            queryWrapper.like("performance_team", performanceTeam);
+        }
+        List<Ruralrecreation> ruralrecreations = new ArrayList<>();
+        ruralrecreations.addAll(ruralrecreationService.list(queryWrapper));
+        return ruralrecreations;
 
+    }
     }
 
