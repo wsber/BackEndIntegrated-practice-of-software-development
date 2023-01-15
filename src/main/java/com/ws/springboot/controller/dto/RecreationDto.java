@@ -46,6 +46,7 @@ public class RecreationDto implements Serializable {
     @ApiModelProperty("送戏下乡，公共电影放映，文化演出活动")
     private String type;
 
+    private int enable ;
 
 
 

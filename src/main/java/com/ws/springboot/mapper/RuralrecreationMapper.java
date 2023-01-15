@@ -17,6 +17,6 @@ import java.util.List;
  */
 public interface RuralrecreationMapper extends BaseMapper<Ruralrecreation> {
 
-    @Select("select r.activity_name,r.activity_startTime, r.audience_number, r.mydesc , r.performance_team,r.activity_endTime,r.cover,r.video_file,r.click_num,r.type, l.region , l.town,l.village,l.province  from location l, ruralrecreation r ,recreationlocation rl  where r.id = rl.recreation_id and rl.loaction_id = l.id")
+    @Select("select r.activity_name,r.activity_startTime, r.audience_number, r.mydesc , r.performance_team,r.activity_endTime,r.cover,r.video_file,r.click_num,r.type,r.enable, l.region , l.town,l.village,l.province  from location l, ruralrecreation r ,recreationlocation rl  where r.id = rl.recreation_id and rl.loaction_id = l.id")
     List<RecreationDto> getDetailData();
 }
