@@ -158,6 +158,55 @@ import org.springframework.web.multipart.MultipartFile;
     }
 
 
+    @GetMapping("/search/key")
+    public  List<Bookinfor> getBooksWithKeySearch(@RequestParam List<String> bookAreas,
+                                                  @RequestParam List<String> bookTypes){
+
+        System.out.println(bookAreas);
+        System.out.println(bookTypes);
+        QueryWrapper<Bookinfor> queryWrapper = new QueryWrapper<Bookinfor>();
+        QueryWrapper<Bookinfor> queryWrapper2 = new QueryWrapper<Bookinfor>();
+
+
+        queryWrapper.or(wrapper -> {
+                    for (String str : bookAreas) {
+                        wrapper.or()
+                                .eq("area", str)
+                        ;
+                    }
+                });
+        queryWrapper2.or(wrapper -> {
+                    for (String str : bookTypes) {
+                        wrapper.or()
+                                .eq("theme", str)
+                        ;
+                    }
+                });
+
+        List<Bookinfor> bookinfors = bookinforMapper.selectList(queryWrapper);
+        List<Bookinfor> bookinfors2 = bookinforMapper.selectList(queryWrapper2);
+        List<Bookinfor> endResult = new ArrayList<>();
+
+        for(Bookinfor test : bookinfors){
+            if(bookinfors2.contains(test)){
+                endResult.add(test);
+            }
+        }
+
+        for(Bookinfor bookinfor : bookinfors)
+            System.out.println(bookinfor.getBookname());
+        System.out.println("*****************************************");
+        for(Bookinfor bookinfor : bookinfors2)
+            System.out.println(bookinfor.getBookname());
+        System.out.println("*****************************************");
+//        for(Bookinfor bookinfor : endResult)
+//            System.out.println(bookinfor.getBookname());
+
+        return endResult;
+    }
+
+
+
     @PostMapping("/intersectionBook/{bookList}/{areaList}")
     public List<Bookinfor> deleteHistory(@PathVariable List<Bookinfor> bookList, @PathVariable List<String> areaList) {
 
