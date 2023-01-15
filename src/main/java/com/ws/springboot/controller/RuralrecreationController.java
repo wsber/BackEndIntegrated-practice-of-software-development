@@ -2,8 +2,13 @@ package com.ws.springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import com.ws.springboot.mapper.RuralrecreationMapper;
+import org.apache.ibatis.annotations.Mapper;
+
 import com.ws.springboot.controller.dto.RecreationDto;
 import com.ws.springboot.entity.Bookinfor;
+
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
@@ -25,24 +30,32 @@ import org.springframework.web.bind.annotation.RestController;
  * @author baomidou
  * @since 2023-01-13
  */
-        @RestController
-        @RequestMapping("/ruralrecreation")
-            public class RuralrecreationController {
+@RestController
+@RequestMapping("/ruralrecreation")
+public class RuralrecreationController {
     
     @Resource
     private IRuralrecreationService ruralrecreationService;
 
+    @Mapper
+    private RuralrecreationMapper ruralrecreationMapper;
+
     @PostMapping
     public Boolean save(@RequestBody Ruralrecreation ruralrecreation) {
+        System.out.println(ruralrecreation.getId());
+//        System.out.println(ruralrecreationMapper.maxID()+1);
+//        if(ruralrecreation.getId()==null){
+//            ruralrecreation.setId(ruralrecreationMapper.maxID()+1);
+//        }
             return ruralrecreationService.saveOrUpdate(ruralrecreation);
             }
+
 
 
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable Integer id) {
             return ruralrecreationService.removeById(id);
             }
-
 
     @GetMapping
     public List<Ruralrecreation> findAll() {
@@ -59,29 +72,28 @@ import org.springframework.web.bind.annotation.RestController;
             return ruralrecreationService.getById(id);
             }
 
-    @DeleteMapping("del/batch")
+    @DeleteMapping("/del/batch")
     public boolean deleteBatch(@RequestBody List<Integer> ids){
             return  ruralrecreationService.removeBatchByIds(ids);
             }
 
     @GetMapping("/page")
     public Page<Ruralrecreation> findPage(@RequestParam Integer pageNum,
-                                    @RequestParam Integer pageSize,
-                                    @RequestParam(defaultValue = "") String username,
-                                    @RequestParam(defaultValue = "") String email,
-                                    @RequestParam(defaultValue = "") String address){
+                                        @RequestParam Integer pageSize,
+                                        @RequestParam(defaultValue = "") String activity_name,
+                                        @RequestParam(defaultValue = "") String id,
+                                        @RequestParam(defaultValue = "") String type){
             QueryWrapper<Ruralrecreation> queryWrapper = new QueryWrapper<>();
-            if(!"".equals(username)){
-            queryWrapper.like("username" ,username);
+            if(!"".equals(activity_name)){
+            queryWrapper.like("activity_name" ,activity_name);
             }
-            if(!"".equals(email)){
-            queryWrapper.like("nickname",email);
+            if(!"".equals(id)){
+            queryWrapper.like("id",id);
             }
-            if(!"".equals(address)){
-            queryWrapper.like("address",address);
+            if(!"".equals(type)){
+            queryWrapper.like("type",type);
             }
-
-                queryWrapper.orderByDesc("id");
+            System.out.println(1);
             return ruralrecreationService.page(new Page<>(pageNum, pageSize), queryWrapper);
             }
 
@@ -110,4 +122,5 @@ import org.springframework.web.bind.annotation.RestController;
 
     }
     }
+}
 

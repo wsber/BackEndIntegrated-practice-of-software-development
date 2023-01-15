@@ -2,6 +2,8 @@ package com.ws.springboot.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -22,6 +24,7 @@ public class Ruralrecreation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+//      @TableId
       private Integer id;
 
       @ApiModelProperty("活动名称")
@@ -54,5 +57,6 @@ public class Ruralrecreation implements Serializable {
       @ApiModelProperty("送戏下乡，公共电影放映，文化演出活动")
       private String type;
 
-
+      @ApiModelProperty("该文件是否能下载")
+      private Integer enable;
 }
