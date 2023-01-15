@@ -2,6 +2,8 @@ package com.ws.springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ws.springboot.mapper.RuralrecreationMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,10 +30,19 @@ public class RuralrecreationController {
     @Resource
     private IRuralrecreationService ruralrecreationService;
 
+    @Mapper
+    private RuralrecreationMapper ruralrecreationMapper;
+
     @PostMapping
     public Boolean save(@RequestBody Ruralrecreation ruralrecreation) {
+        System.out.println(ruralrecreation.getId());
+//        System.out.println(ruralrecreationMapper.maxID()+1);
+//        if(ruralrecreation.getId()==null){
+//            ruralrecreation.setId(ruralrecreationMapper.maxID()+1);
+//        }
             return ruralrecreationService.saveOrUpdate(ruralrecreation);
             }
+
 
 
     @DeleteMapping("/{id}")
