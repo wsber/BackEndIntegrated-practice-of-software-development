@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+
 /**
  * <p>
  *  Mapper 接口
@@ -17,6 +18,30 @@ import java.util.List;
  */
 public interface RuralrecreationMapper extends BaseMapper<Ruralrecreation> {
 
-    @Select("select r.activity_name,r.activity_startTime, r.audience_number, r.mydesc , r.performance_team,r.activity_endTime,r.cover,r.video_file,r.click_num,r.type,r.enable, l.region , l.town,l.village,l.province  from location l, ruralrecreation r ,recreationlocation rl  where r.id = rl.recreation_id and rl.loaction_id = l.id")
+    @Select("select max(id) from 'ruralrecreation'")
+    public Integer maxID();
+
+    @Select("SELECT\n" +
+            "\tr.activity_name,\n" +
+            "\tr.activity_startTime,\n" +
+            "\tr.audience_number,\n" +
+            "\tr.mydesc,\n" +
+            "\tr.performance_team,\n" +
+            "\tr.activity_endTime,\n" +
+            "\tr.cover,\n" +
+            "\tr.video_file,\n" +
+            "\tr.click_num,\n" +
+            "\tr.type,\n" +
+            "\tr.ENABLE,\n" +
+            "\tl.region,\n" +
+            "\tl.town,\n" +
+            "\tl.village,\n" +
+            "\tl.province \n" +
+            "FROM\n" +
+            "  ruralrecreation r\n" +
+            "\tLeft OUTER JOIN recreationlocation rl ON r.id = rl.recreation_id\n" +
+            "\tLeft OUTER  Join location l ON rl.loaction_id = l.id "
+           )
     List<RecreationDto> getDetailData();
+
 }

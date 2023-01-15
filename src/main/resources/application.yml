@@ -22,4 +22,5 @@ mybatis-plus:
 files:
   upload:
      path: D:\projects\IntegratedPracticeOfSoftwareDevelopment\Integrated-practice-of-software-development\src\main\resources\files\
+
 #spring.web.resources.static-locations=  classpath:static/,classpath:/templates/

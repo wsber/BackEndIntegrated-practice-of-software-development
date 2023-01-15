@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -78,4 +79,35 @@ public class Bookinfor implements Serializable {
 
     private String area;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bookinfor bookinfor = (Bookinfor) o;
+        return oldbook == bookinfor.oldbook &&
+                Objects.equals(bookid, bookinfor.bookid) &&
+                Objects.equals(cover, bookinfor.cover) &&
+                Objects.equals(stockNum, bookinfor.stockNum) &&
+                Objects.equals(clickNum, bookinfor.clickNum) &&
+                Objects.equals(content, bookinfor.content) &&
+                Objects.equals(readingPrivilege, bookinfor.readingPrivilege) &&
+                Objects.equals(pageLimit, bookinfor.pageLimit) &&
+                Objects.equals(downloadTime, bookinfor.downloadTime) &&
+                Objects.equals(bookname, bookinfor.bookname) &&
+                Objects.equals(originalPrice, bookinfor.originalPrice) &&
+                Objects.equals(authorName, bookinfor.authorName) &&
+                Objects.equals(synopsis, bookinfor.synopsis) &&
+                Objects.equals(buyTime, bookinfor.buyTime) &&
+                Objects.equals(sales, bookinfor.sales) &&
+                Objects.equals(bookUrl, bookinfor.bookUrl) &&
+                Objects.equals(discount, bookinfor.discount) &&
+                Objects.equals(theme, bookinfor.theme) &&
+                Objects.equals(enable, bookinfor.enable) &&
+                Objects.equals(area, bookinfor.area);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookid, cover, stockNum, clickNum, content, readingPrivilege, pageLimit, downloadTime, bookname, originalPrice, authorName, synopsis, buyTime, sales, bookUrl, oldbook, discount, theme, enable, area);
+    }
 }
