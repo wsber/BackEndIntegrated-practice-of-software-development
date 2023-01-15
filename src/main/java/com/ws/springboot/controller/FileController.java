@@ -136,7 +136,7 @@ public class FileController {
 
         int userAuthority = judge();
 //        int userAuthority = 100;
-        if(bookinfor.getReadingPrivilege().intValue() <= userAuthority){
+        if(bookinfor.getReadingPrivilege() <= userAuthority){
             return  true;
         }
         else
@@ -150,7 +150,7 @@ public class FileController {
         System.out.println(id);
         Bookinfor bookinfor = bookinforService.getById(id);
         int userAuthority = judge();
-        if(bookinfor.getReadingPrivilege().intValue() <= userAuthority-1){
+        if(bookinfor.getReadingPrivilege() <= userAuthority-1){
             return  true;
         }
         else
@@ -162,7 +162,6 @@ public class FileController {
     @GetMapping("/judgeCollectTimeAuthority/{bookids}")
     public List<Integer> judgeCollectTimeAty(@PathVariable List<Integer> bookids) {
         List<Bookinfor> bookinfors = new ArrayList<>();
-
         for (Integer bookid : bookids) {
             bookinfors.add(bookinforService.getById(bookid));
         }
@@ -202,28 +201,6 @@ public class FileController {
         }
         return  collectDays;
     }
-
-//        int day = 0;
-//        int differenceValue = judge() - bookinfor.getReadingPrivilege().intValue() ;
-//        if(differenceValue < 0 ){
-//            return  0;
-//        }
-//        else {
-//            switch (differenceValue){
-//                case 0:
-//                    day = 128;
-//                    break;
-//                case 1: day = 256; break;
-//                case 2: day = 512;break;
-//                case 3: day = 99991;break;
-//                case 4: day = 99992;break;
-//                case 5: day = 99993;break;
-//                default:
-//                    System.out.println("此用户为游客！");
-//            }
-//        }
-//        return day;
-
 
     /**
      * 通过文件的md5查询文件
