@@ -79,6 +79,8 @@ public class Bookinfor implements Serializable {
 
     private String area;
 
+    private Integer bookType;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

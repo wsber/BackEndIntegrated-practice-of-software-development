@@ -16,4 +16,7 @@ import java.util.List;
 public interface IBookinforService extends IService<Bookinfor> {
 
 
+    List<Bookinfor> getVillageBooks();
+
+    List<Bookinfor> getYouthBooks();
 }

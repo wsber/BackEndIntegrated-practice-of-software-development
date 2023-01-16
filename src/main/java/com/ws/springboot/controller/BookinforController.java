@@ -98,25 +98,6 @@ import org.springframework.web.multipart.MultipartFile;
             bookinfors.addAll(tmp);
         }
 
-       /* int i = 0;
-
-        if( areaList.size() != 0){
-            for( i = 0  ; i < bookinfors.size() ; i ++){
-                int countMarry = 0 ;
-                int j = 0 ;
-                Bookinfor bookinfor = bookinfors.get(i);
-                for( j = 0 ; j < areaList.size() ; j++){
-                    if(bookinfor.getArea() == areaList.get(j)){
-                        countMarry ++;
-                    }
-                }
-                if(countMarry == 0){
-                    bookinfors.remove(bookinfor);
-                }
-            }
-        }*/
-
-
         return  bookinfors;
     }
 
@@ -158,52 +139,7 @@ import org.springframework.web.multipart.MultipartFile;
     }
 
 
-    @GetMapping("/search/key")
-    public  List<Bookinfor> getBooksWithKeySearch(@RequestParam List<String> bookAreas,
-                                                  @RequestParam List<String> bookTypes){
 
-        System.out.println(bookAreas);
-        System.out.println(bookTypes);
-        QueryWrapper<Bookinfor> queryWrapper = new QueryWrapper<Bookinfor>();
-        QueryWrapper<Bookinfor> queryWrapper2 = new QueryWrapper<Bookinfor>();
-
-
-        queryWrapper.or(wrapper -> {
-                    for (String str : bookAreas) {
-                        wrapper.or()
-                                .eq("area", str)
-                        ;
-                    }
-                });
-        queryWrapper2.or(wrapper -> {
-                    for (String str : bookTypes) {
-                        wrapper.or()
-                                .eq("theme", str)
-                        ;
-                    }
-                });
-
-        List<Bookinfor> bookinfors = bookinforMapper.selectList(queryWrapper);
-        List<Bookinfor> bookinfors2 = bookinforMapper.selectList(queryWrapper2);
-        List<Bookinfor> endResult = new ArrayList<>();
-
-        for(Bookinfor test : bookinfors){
-            if(bookinfors2.contains(test)){
-                endResult.add(test);
-            }
-        }
-
-        for(Bookinfor bookinfor : bookinfors)
-            System.out.println(bookinfor.getBookname());
-        System.out.println("*****************************************");
-        for(Bookinfor bookinfor : bookinfors2)
-            System.out.println(bookinfor.getBookname());
-        System.out.println("*****************************************");
-//        for(Bookinfor bookinfor : endResult)
-//            System.out.println(bookinfor.getBookname());
-
-        return endResult;
-    }
 
 
 
@@ -286,7 +222,8 @@ import org.springframework.web.multipart.MultipartFile;
     public List<Bookinfor> likeSearchBooks(
                                     @RequestParam(defaultValue = "") String bookname,
                                     @RequestParam(defaultValue = "") String memberName,
-                                    @RequestParam(defaultValue = "") String authorName) {
+                                    @RequestParam(defaultValue = "") String authorName,
+                                    @RequestParam Integer bookType) {
 
         QueryWrapper<Bookinfor> queryWrapper = new QueryWrapper<>();
         int readingPrivilege =  0;
@@ -322,7 +259,14 @@ import org.springframework.web.multipart.MultipartFile;
         if (!"".equals(authorName)) {
             queryWrapper.like("author_name", authorName);
         }
-
+        //为零说明为乡村书房
+        if(bookType == 0 ){
+            queryWrapper.eq("book_type",0);
+        }else{//否则为娱乐阅览室
+            queryWrapper.and(wrapper->{
+                wrapper.or().eq("book_type", 1).or().eq("book_type", 2);
+            });
+        }
         List<Bookinfor> bookinfors = new ArrayList<>();
         bookinfors.addAll(bookinforService.list(queryWrapper));
         return bookinfors;
@@ -406,6 +350,130 @@ import org.springframework.web.multipart.MultipartFile;
     }
 
 
+    @GetMapping("/search/village/key")
+    public  List<Bookinfor> getBooksWithKeySearch(@RequestParam List<String> bookAreas,
+                                                  @RequestParam List<String> bookTypes){
+
+        System.out.println(bookAreas);
+        System.out.println(bookTypes);
+        QueryWrapper<Bookinfor> queryWrapper = new QueryWrapper<Bookinfor>();
+        QueryWrapper<Bookinfor> queryWrapper2 = new QueryWrapper<Bookinfor>();
+
+
+        queryWrapper.or(wrapper -> {
+            for (String str : bookAreas) {
+                wrapper.or()
+                        .eq("area", str)
+                ;
+            }
+        });
+        queryWrapper.and(wrapper->{
+            wrapper.eq("book_type",0);
+        });
+//        queryWrapper.eq("book_type",0);   //与上面表达式等价
+        queryWrapper2.or(wrapper -> {
+            for (String str : bookTypes) {
+                wrapper.or()
+                        .eq("theme", str)
+                ;
+            }
+        });
+        queryWrapper2.eq("book_type",0);
+        List<Bookinfor> bookinfors = bookinforMapper.selectList(queryWrapper);
+        List<Bookinfor> bookinfors2 = bookinforMapper.selectList(queryWrapper2);
+        List<Bookinfor> endResult = new ArrayList<>();
+
+        for(Bookinfor test : bookinfors){
+            if(bookinfors2.contains(test)){
+                endResult.add(test);
+            }
+        }
+
+        for(Bookinfor bookinfor : bookinfors)
+            System.out.println(bookinfor.getBookname());
+        System.out.println("*****************************************");
+        for(Bookinfor bookinfor : bookinfors2)
+            System.out.println(bookinfor.getBookname());
+        System.out.println("*****************************************");
+//        for(Bookinfor bookinfor : endResult)
+//            System.out.println(bookinfor.getBookname());
+
+        return endResult;
+    }
+
+
+    @GetMapping("/search/village")
+    public List<Bookinfor> getVillageBooks(){
+        return bookinforService.getVillageBooks();
+    }
+
+    @GetMapping("/search/youth")
+    public List<Bookinfor> getYouthBooks(){return  bookinforService.getYouthBooks();}
+
+
+    //鲁棒性不强，未考虑空串的情况
+    @GetMapping("/search/youth/key")
+    public  List<Bookinfor> getBooksWithKeyUnderYouthSearch(
+                                                  @RequestParam List<String> bookAreas,
+                                                  @RequestParam List<String> bookThemes,
+                                                  @RequestParam List<String> comicThemes){
+
+        System.out.println(bookAreas);
+        System.out.println(comicThemes);
+        System.out.println(bookThemes);
+
+        QueryWrapper<Bookinfor> queryWrapper = new QueryWrapper<Bookinfor>();
+        QueryWrapper<Bookinfor> queryWrapper2 = new QueryWrapper<Bookinfor>();
+
+
+        queryWrapper.or(wrapper -> {
+            for (String str : bookAreas) {
+                wrapper.or()
+                        .eq("area", str)
+                ;
+            }
+        });
+        queryWrapper.and(wrapper->{
+            wrapper.or().eq("book_type",1).or().eq("book_type",2);
+        });
+        queryWrapper2.or(wrapper -> {
+            for (String str : bookThemes) {
+                wrapper.or()
+                        .eq("theme", str)
+                ;
+            }
+            for (String str : comicThemes) {
+                wrapper.or()
+                        .eq("theme", str)
+                ;
+            }
+        });
+        queryWrapper2.and(wrapper->{
+            wrapper.or().eq("book_type",1).or().eq("book_type",2);
+        });
+
+
+        List<Bookinfor> bookinfors = bookinforMapper.selectList(queryWrapper);
+        List<Bookinfor> bookinfors2 = bookinforMapper.selectList(queryWrapper2);
+        List<Bookinfor> endResult = new ArrayList<>();
+
+        for(Bookinfor test : bookinfors){
+            if(bookinfors2.contains(test)){
+                endResult.add(test);
+            }
+        }
+
+        for(Bookinfor bookinfor : bookinfors)
+            System.out.println(bookinfor.getBookname());
+        System.out.println("*****************************************");
+        for(Bookinfor bookinfor : bookinfors2)
+            System.out.println(bookinfor.getBookname());
+        System.out.println("*****************************************");
+//        for(Bookinfor bookinfor : endResult)
+//            System.out.println(bookinfor.getBookname());
+
+        return endResult;
+    }
 
 
 
