@@ -73,8 +73,10 @@ import org.springframework.web.bind.annotation.RestController;
             }
 
                 queryWrapper.orderByDesc("id");
+            System.out.println("wserTest");
             return dictService.page(new Page<>(pageNum, pageSize), queryWrapper);
-            }
+
+    }
 
 
 
