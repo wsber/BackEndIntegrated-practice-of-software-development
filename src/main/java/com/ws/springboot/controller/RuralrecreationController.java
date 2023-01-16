@@ -2,10 +2,17 @@ package com.ws.springboot.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import com.ws.springboot.mapper.RuralrecreationMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import com.ws.springboot.controller.dto.RecreationDto;
+import com.ws.springboot.entity.Bookinfor;
+
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,6 +62,11 @@ public class RuralrecreationController {
             return ruralrecreationService.list();
             }
 
+    @GetMapping("/detail")
+    public List<RecreationDto> getDetailData(){
+            return ruralrecreationService.getDetailData();
+    }
+
     @GetMapping("/{id}")
     public Ruralrecreation findOne(@PathVariable Integer id) {
             return ruralrecreationService.getById(id);
@@ -83,6 +95,32 @@ public class RuralrecreationController {
             }
             System.out.println(1);
             return ruralrecreationService.page(new Page<>(pageNum, pageSize), queryWrapper);
+            }
+
+
+    @GetMapping("/likeSearchActivities")
+    public List<Ruralrecreation> likeSearchBooks(
+            @RequestParam(defaultValue = "") String activityName,
+            @RequestParam(defaultValue = "") String activityType,
+            @RequestParam(defaultValue = "") String performanceTeam) {
+
+        QueryWrapper<Ruralrecreation> queryWrapper = new QueryWrapper<>();
+        int readingPrivilege =  0;
+
+        if (!"".equals(activityName)) {
+            queryWrapper.like("activity_name", activityName);
+        }
+        if (!"".equals(activityType)) {
+            queryWrapper.eq("type", activityType);
+        }
+        if (!"".equals(performanceTeam)) {
+            queryWrapper.like("performance_team", performanceTeam);
+        }
+        List<Ruralrecreation> ruralrecreations = new ArrayList<>();
+        ruralrecreations.addAll(ruralrecreationService.list(queryWrapper));
+        return ruralrecreations;
+
+    }
     }
 }
 

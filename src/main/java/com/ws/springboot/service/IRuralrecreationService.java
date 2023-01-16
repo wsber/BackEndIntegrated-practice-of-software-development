@@ -1,7 +1,10 @@
 package com.ws.springboot.service;
 
+import com.ws.springboot.controller.dto.RecreationDto;
 import com.ws.springboot.entity.Ruralrecreation;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRuralrecreationService extends IService<Ruralrecreation> {
 
+    List<RecreationDto> getDetailData();
 }
