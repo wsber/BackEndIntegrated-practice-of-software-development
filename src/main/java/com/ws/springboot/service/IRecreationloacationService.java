@@ -1,5 +1,6 @@
 package com.ws.springboot.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ws.springboot.entity.Recreationloacation;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IRecreationloacationService extends IService<Recreationloacation> {
 
+    Page<Recreationloacation> getpage(Integer pageNum,Integer pageSize);
 }

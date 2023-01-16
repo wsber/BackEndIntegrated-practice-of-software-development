@@ -37,16 +37,16 @@ public class RuralrecreationController {
     @Resource
     private IRuralrecreationService ruralrecreationService;
 
-    @Mapper
+    @Resource
     private RuralrecreationMapper ruralrecreationMapper;
 
     @PostMapping
     public Boolean save(@RequestBody Ruralrecreation ruralrecreation) {
         System.out.println(ruralrecreation.getId());
-//        System.out.println(ruralrecreationMapper.maxID()+1);
-//        if(ruralrecreation.getId()==null){
-//            ruralrecreation.setId(ruralrecreationMapper.maxID()+1);
-//        }
+        System.out.println(ruralrecreationMapper.maxID()+1);
+        if(ruralrecreation.getId()==null){
+            ruralrecreation.setId(ruralrecreationMapper.maxID()+1);
+        }
             return ruralrecreationService.saveOrUpdate(ruralrecreation);
             }
 
@@ -121,6 +121,6 @@ public class RuralrecreationController {
         return ruralrecreations;
 
     }
-    }
 }
+
 

@@ -55,6 +55,7 @@ public class RecreationloacationController {
             return  recreationloacationService.removeBatchByIds(ids);
             }
 
+
     @GetMapping("/page")
     public Page<Recreationloacation> findPage(@RequestParam Integer pageNum,
                                             @RequestParam Integer pageSize,
@@ -71,7 +72,7 @@ public class RecreationloacationController {
             if(!"".equals(address)){
             queryWrapper.like("address",address);
             }
-            return recreationloacationService.page(new Page<>(pageNum, pageSize), queryWrapper);
+            return recreationloacationService.getpage(pageNum,pageSize);
             }
     }
 
