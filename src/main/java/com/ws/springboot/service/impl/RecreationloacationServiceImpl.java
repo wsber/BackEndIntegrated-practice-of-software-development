@@ -22,7 +22,6 @@ import java.util.List;
  */
 @Service
 public class RecreationloacationServiceImpl extends ServiceImpl<RecreationloacationMapper, Recreationloacation> implements IRecreationloacationService {
-
     @Resource
     private RecreationloacationMapper recreationloacationMapper;
     @Override

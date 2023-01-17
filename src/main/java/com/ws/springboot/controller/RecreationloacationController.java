@@ -56,7 +56,6 @@ public class RecreationloacationController {
             }
 
 
-
     @GetMapping("/page")
     public Page<Recreationloacation> findPage(@RequestParam Integer pageNum,
                                             @RequestParam Integer pageSize,
