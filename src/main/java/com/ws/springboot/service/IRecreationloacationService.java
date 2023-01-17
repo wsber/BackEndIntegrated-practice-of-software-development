@@ -13,6 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-01-13
  */
 public interface IRecreationloacationService extends IService<Recreationloacation> {
-
     Page<Recreationloacation> getpage(Integer pageNum,Integer pageSize);
 }

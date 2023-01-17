@@ -25,7 +25,6 @@ public class RecreationloacationServiceImpl extends ServiceImpl<Recreationloacat
 
     @Resource
     private RecreationloacationMapper recreationloacationMapper;
-
     @Override
     public Page<Recreationloacation> getpage(Integer pageNum,Integer pageSize) {
 
