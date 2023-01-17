@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/activityphotoes")
 public class ActivityphotoesController {
-    private final int  photoNum = 4;
+    private final int  photoNum = 6;
     
     @Resource
     private IActivityphotoesService activityphotoesService;
