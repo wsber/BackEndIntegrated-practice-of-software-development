@@ -33,17 +33,8 @@ public class FileController {
     @Resource
     private FileMapper fileMapper;
     @Resource
-    private   DownloadhistoryController downloadhistoryController;
-    @Resource
     private IBookinforService bookinforService;
 
-    @Resource
-    private BookinforMapper bookinforMapper;
-
-//    @GetMapping("/{id}")
-//    public String findOne(@PathVariable Integer id) {
-//        return fileMapper.getById(id);
-//    }
 
     @PostMapping("/upload")
         public String upload(@RequestParam MultipartFile file) throws IOException {

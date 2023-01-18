@@ -44,7 +44,7 @@ public class ActivityphotoesController {
             }
 
     @GetMapping("/random")
-    public List<Activityphotoes> findWithRandom(){
+    public List<Activityphotoes> findPhotosWithRandom(){
         List<Activityphotoes> rawList = findAll();
         List<Activityphotoes> results = new ArrayList<>();
         Random r = new Random(System.currentTimeMillis());

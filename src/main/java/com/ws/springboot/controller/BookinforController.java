@@ -351,7 +351,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
     @GetMapping("/search/village/key")
-    public  List<Bookinfor> getBooksWithKeySearch(@RequestParam List<String> bookAreas,
+    public  List<Bookinfor> getBooksWithKeysUnderVillageSearch(@RequestParam List<String> bookAreas,
                                                   @RequestParam List<String> bookTypes){
 
         System.out.println(bookAreas);
@@ -413,7 +413,7 @@ import org.springframework.web.multipart.MultipartFile;
 
     //鲁棒性不强，未考虑空串的情况
     @GetMapping("/search/youth/key")
-    public  List<Bookinfor> getBooksWithKeyUnderYouthSearch(
+    public  List<Bookinfor> getBooksWithKeysUnderYouthSearch(
                                                   @RequestParam List<String> bookAreas,
                                                   @RequestParam List<String> bookThemes,
                                                   @RequestParam List<String> comicThemes){

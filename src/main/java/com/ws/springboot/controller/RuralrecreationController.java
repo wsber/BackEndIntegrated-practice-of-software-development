@@ -99,7 +99,7 @@ public class RuralrecreationController {
 
 
     @GetMapping("/likeSearchActivities")
-    public List<Ruralrecreation> likeSearchBooks(
+    public List<Ruralrecreation> likeSearchActivities(
             @RequestParam(defaultValue = "") String activityName,
             @RequestParam(defaultValue = "") String activityType,
             @RequestParam(defaultValue = "") String performanceTeam) {
