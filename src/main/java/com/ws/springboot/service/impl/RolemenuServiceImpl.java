@@ -39,24 +39,6 @@ public class RolemenuServiceImpl extends ServiceImpl<RolemenuMapper, Rolemenu> i
         queryWrapper.eq("role_id", roleId);
         //先删除当前角色id所有的绑定关系
         rolemenuMapper.delete(queryWrapper);
-
-        //再把前端传过来的菜单id数组绑定到当前的角色id上去
-//        for(Integer menuId :menuids){
-//
-//            SysMenu menu = menuService.getById(menuId);
-//            if(menu.getPid()!=null && !menuids.contains(menu.getPid())){ //二级菜单
-//                Rolemenu rolemenu = new Rolemenu();
-//                rolemenu.setMenuId(menu.getPid());
-//                rolemenu.setRoleId(roleId);
-//                rolemenuMapper.insert(rolemenu);
-//            }
-//
-//            Rolemenu rolemenu = new Rolemenu();
-//            rolemenu.setMenuId(menuId);
-//            rolemenu.setRoleId(roleId);
-//            rolemenuMapper.insert(rolemenu);
-//
-//        }
         List<Integer> menuIdsCopy = CollUtil.newArrayList(menuids);
         for (Integer menuId : menuids) {
             SysMenu menu = menuService.getById(menuId);

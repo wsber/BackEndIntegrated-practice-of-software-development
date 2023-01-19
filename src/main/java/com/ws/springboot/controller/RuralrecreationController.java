@@ -43,40 +43,24 @@ public class RuralrecreationController {
     @PostMapping
     public Boolean save(@RequestBody Ruralrecreation ruralrecreation) {
         System.out.println(ruralrecreation.getId());
-//        System.out.println(ruralrecreationMapper.maxID()+1);
-//        if(ruralrecreation.getId()==null){
-//            ruralrecreation.setId(ruralrecreationMapper.maxID()+1);
-//        }
             return ruralrecreationService.saveOrUpdate(ruralrecreation);
             }
-
-
-
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable Integer id) {
             return ruralrecreationService.removeById(id);
             }
-
     @GetMapping
     public List<Ruralrecreation> findAll() {
             return ruralrecreationService.list();
             }
-
-    @GetMapping("/detail")
-    public List<RecreationDto> getDetailData(){
-            return ruralrecreationService.getDetailData();
-    }
-
     @GetMapping("/{id}")
     public Ruralrecreation findOne(@PathVariable Integer id) {
-            return ruralrecreationService.getById(id);
-            }
-
+        return ruralrecreationService.getById(id);
+    }
     @DeleteMapping("/del/batch")
     public boolean deleteBatch(@RequestBody List<Integer> ids){
-            return  ruralrecreationService.removeBatchByIds(ids);
-            }
-
+        return  ruralrecreationService.removeBatchByIds(ids);
+    }
     @GetMapping("/page")
     public Page<Ruralrecreation> findPage(@RequestParam Integer pageNum,
                                         @RequestParam Integer pageSize,
@@ -97,16 +81,19 @@ public class RuralrecreationController {
             return ruralrecreationService.page(new Page<>(pageNum, pageSize), queryWrapper);
             }
 
+    @GetMapping("/detail")
+    public List<RecreationDto> getDetailData(){
+        return ruralrecreationService.getDetailData();
+    }
+
 
     @GetMapping("/likeSearchActivities")
     public List<Ruralrecreation> likeSearchActivities(
             @RequestParam(defaultValue = "") String activityName,
             @RequestParam(defaultValue = "") String activityType,
             @RequestParam(defaultValue = "") String performanceTeam) {
-
         QueryWrapper<Ruralrecreation> queryWrapper = new QueryWrapper<>();
         int readingPrivilege =  0;
-
         if (!"".equals(activityName)) {
             queryWrapper.like("activity_name", activityName);
         }
