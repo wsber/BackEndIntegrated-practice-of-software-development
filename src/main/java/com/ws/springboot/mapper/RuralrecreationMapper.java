@@ -22,21 +22,21 @@ public interface RuralrecreationMapper extends BaseMapper<Ruralrecreation> {
     public Integer maxID();
 
     @Select("SELECT\n" +
-            "\tr.activity_name,\n" +
-            "\tr.activity_startTime,\n" +
-            "\tr.audience_number,\n" +
-            "\tr.mydesc,\n" +
-            "\tr.performance_team,\n" +
-            "\tr.activity_endTime,\n" +
-            "\tr.cover,\n" +
-            "\tr.video_file,\n" +
-            "\tr.click_num,\n" +
-            "\tr.type,\n" +
-            "\tr.ENABLE,\n" +
-            "\tl.region,\n" +
-            "\tl.town,\n" +
-            "\tl.village,\n" +
-            "\tl.province \n" +
+            "\t r.activity_name,\n" +
+            "\t r.activity_startTime,\n" +
+            "\t r.audience_number,\n" +
+            "\t r.mydesc,\n" +
+            "\t r.performance_team,\n" +
+            "\t r.activity_endTime,\n" +
+            "\t r.cover,\n" +
+            "\t r.video_file,\n" +
+            "\t r.click_num,\n" +
+            "\t r.type,\n" +
+            "\t r.ENABLE,\n" +
+            "\t l.region,\n" +
+            "\t l.town,\n" +
+            "\t l.village,\n" +
+            "\t l.province \n" +
             "FROM\n" +
             "  ruralrecreation r\n" +
             "\tLeft OUTER JOIN recreationlocation rl ON r.id = rl.recreation_id\n" +
